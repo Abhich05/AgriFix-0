@@ -67,6 +67,26 @@ function Home() {
             <span className="accent" style={{ color: '#43a047', fontWeight: 700 }}>Agrofix</span> <span/>Helps you to
             Buy and sell your vegitables and fruits easily.
           </p>
+          <div style={{ margin: '10px 0 18px 0', display: 'flex', alignItems: 'center', gap: 10 }}>
+            <label htmlFor="region-select" style={{ fontWeight: 600, color: '#388e3c', fontSize: 16 }}>{t('region') || 'Region'}:</label>
+            <select
+              id="region-select"
+              value={localStorage.getItem('selectedRegion') || 'Punjab'}
+              onChange={e => {
+                localStorage.setItem('selectedRegion', e.target.value);
+                window.dispatchEvent(new Event('storage'));
+              }}
+              style={{ padding: '6px 14px', borderRadius: 8, border: '1px solid #388e3c', fontSize: 15, background: '#fff', color: '#2e7d32', fontWeight: 600 }}
+            >
+              <option value="Punjab">Punjab</option>
+              <option value="Haryana">Haryana</option>
+              <option value="Uttar Pradesh">Uttar Pradesh</option>
+              <option value="Maharashtra">Maharashtra</option>
+              <option value="Karnataka">Karnataka</option>
+              <option value="Telangana">Telangana</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
           <div style={{ display: 'flex', gap: '1rem', marginTop: 12 }}>
             <a href="/catalogue" className="btn-primary" style={{ textDecoration:'none', fontSize: 18, padding: '10px', borderRadius: 8, width:'120px' }}>Shop Now</a>
             <a href="/order" className="btn-secondary" style={{ textDecoration:'none',fontSize: 18, padding: '10px', borderRadius: 8, background: '#fff', width:'120px',color: '#388e3c', border: '2px solid #388e3c' }}>My Orders</a>
