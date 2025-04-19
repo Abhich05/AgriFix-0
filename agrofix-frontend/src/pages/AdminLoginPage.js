@@ -67,12 +67,12 @@ function AdminLoginPage() {
       <form className="admin-login-form" onSubmit={handleSubmit(onSubmit)} noValidate>
         <label>
           Email
-          <input name="email" {...register('email')} />
+          <input name="email" placeholder="Enter your email" {...register('email')} />
           {errors.email && <div className="admin-login-error">{errors.email.message}</div>}
         </label>
         <label>
           Password
-          <input name="password" type="password" {...register('password')} />
+          <input name="password" type="password" placeholder="Enter your password" {...register('password')} />
           {errors.password && <div className="admin-login-error">{errors.password.message}</div>}
         </label>
         <button type="submit" className="btn-primary">Login</button>

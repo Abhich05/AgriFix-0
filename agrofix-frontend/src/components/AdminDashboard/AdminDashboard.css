@@ -157,16 +157,84 @@
   font-size: 1.01rem;
   margin-bottom: 8px;
 }
+
+/* Responsive enhancements for AdminDashboard */
 @media (max-width: 900px) {
-  .admin-dashboard-main { padding: 16px 2vw !important; }
-  .admin-section { padding: 14px 2vw !important; }
-  .admin-table th, .admin-table td { font-size: 0.98rem !important; padding: 8px 4px !important; }
+  .admin-dashboard-main {
+    padding: 8px 1vw !important;
+    margin: 18px auto !important;
+  }
+  .admin-section {
+    padding: 10px 1vw !important;
+    margin-bottom: 18px !important;
+    border-radius: 10px !important;
+    box-shadow: 0 2px 8px #a5d6a7aa !important;
+  }
+  .admin-section-title {
+    font-size: 1.15rem !important;
+    margin-bottom: 10px !important;
+  }
+  .admin-table th, .admin-table td {
+    font-size: 0.93rem !important;
+    padding: 7px 2px !important;
+  }
+  .admin-table td {
+    word-break: break-word;
+    max-width: 120px;
+  }
+  .admin-table img {
+    width: 32px !important;
+    height: 32px !important;
+  }
+  .admin-table button {
+    font-size: 0.92rem !important;
+    padding: 6px 10px !important;
+    margin-bottom: 2px !important;
+  }
 }
 @media (max-width: 600px) {
-  .admin-dashboard-main { padding: 4px 1vw !important; }
-  .admin-section { padding: 6px 1vw !important; }
-  .admin-table th, .admin-table td { font-size: 0.87rem !important; padding: 4px 2px !important; }
+  .admin-dashboard-main {
+    padding: 2px 0.5vw !important;
+    margin: 6px auto !important;
+  }
+  .admin-section {
+    padding: 4px 0.5vw !important;
+    margin-bottom: 10px !important;
+    border-radius: 6px !important;
+    box-shadow: 0 1px 4px #a5d6a7aa !important;
+  }
+  .admin-section-title {
+    font-size: 1rem !important;
+    margin-bottom: 7px !important;
+  }
+  .admin-table th, .admin-table td {
+    font-size: 0.8rem !important;
+    padding: 3px 1px !important;
+  }
+  .admin-table td {
+    word-break: break-word;
+    max-width: 80px;
+  }
+  .admin-table img {
+    width: 22px !important;
+    height: 22px !important;
+  }
+  .admin-table button {
+    font-size: 0.8rem !important;
+    padding: 4px 7px !important;
+    margin-bottom: 2px !important;
+  }
+  .admin-status {
+    font-size: 0.7rem !important;
+    padding: 3px 7px !important;
+  }
 }
 @media (max-width: 400px) {
-  .admin-dashboard-main { padding: 0 !important; }
+  .admin-dashboard-main {
+    padding: 0 !important;
+  }
+  .admin-table th, .admin-table td {
+    font-size: 0.7rem !important;
+    padding: 2px 0.5px !important;
+  }
 }

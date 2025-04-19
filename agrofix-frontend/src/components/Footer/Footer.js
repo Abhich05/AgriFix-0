@@ -1,86 +1,48 @@
 import React from 'react';
 import './Footer.css';
-import { useTranslation } from 'react-i18next';
 
-const farmerTips = [
-  ' Tip: Rotate crops for healthier soil!',
-  ' Save water by irrigating early morning or late evening.',
-  ' Share your best harvest photo in our gallery!',
-  ' Join the community – comment and connect with other farmers!',
-  ' Use Agrofix on mobile for updates on the go!'
-];
-
-const regions = [
-  'Punjab', 'Haryana', 'Bihar', 'Maharashtra', 'Tamil Nadu', 'Karnataka', 'Gujarat', 'Andhra Pradesh', 'West Bengal', 'Uttar Pradesh'
-];
-
-export default function Footer() {
-  const { t } = useTranslation();
-  const [tip, setTip] = React.useState(farmerTips[0]);
-  const [region, setRegion] = React.useState(() => {
-    return localStorage.getItem('selectedRegion') || regions[0];
-  });
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-      setTip(farmerTips[Math.floor(Math.random() * farmerTips.length)]);
-    }, 6000);
-    return () => clearInterval(interval);
-  }, []);
-  React.useEffect(() => {
-    localStorage.setItem('selectedRegion', region);
-    window.dispatchEvent(new Event('storage', { bubbles: true, cancelable: false }));
-    // Custom event for cross-tab sync
-    localStorage.setItem('agrofixRegionChange', Date.now().toString());
-  }, [region]);
-  return (
-    <footer className="footer">
-      <div className="footer-content">
-        <div className="footer-brand">
-          <img src="/logo-dummy.svg" alt={t('logoAlt') || 'Agrofix Logo'} className="footer-logo" />
-          <span className="footer-title">Agrofix</span>
+const Footer = () => (
+  <footer className="agro-footer">
+    <div className="footer-main">
+      <div className="footer-brand">
+        <img src="/logo-dummy.svg" alt="Agrofix Logo" className="footer-logo" />
+        <span className="footer-app-name">Agrofix</span>
+        <p className="footer-tagline">Empowering Farmers, Connecting Markets</p>
+      </div>
+      <div className="footer-links">
+        <div>
+          <h4>Company</h4>
+          <a href="/about">About Us</a>
+          <a href="/contact">Contact</a>
+          <a href="/careers">Careers</a>
         </div>
-        <div className="footer-links">
-          <a href="/" className="footer-link">Home</a>
-          <a href="/catalogue" className="footer-link">Shop</a>
-          <a href="/order" className="footer-link">My Basket</a>
-          <a href="/track" className="footer-link">Track Order</a>
+        <div>
+          <h4>Support</h4>
+          <a href="/faq">FAQ</a>
+          <a href="/help">Help Center</a>
+          <a href="mailto:support@agrofix.com">Email Support</a>
         </div>
-        <div className="footer-social">
-          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="footer-social-icon">
-            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook" />
-          </a>
-          <a href="https://x.com" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" className="footer-social-icon">
-            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg" alt="X" />
-          </a>
-          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="footer-social-icon">
-            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram" />
-          </a>
-          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="footer-social-icon">
-            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube" />
-          </a>
-        </div>
-        <div className="footer-policy">
-          <a href="/privacy" className="footer-policy-link">Privacy Policy</a>
-          <span className="footer-policy-sep">|</span>
-          <a href="/terms" className="footer-policy-link">Terms & Conditions</a>
-        </div>
-        <div className="footer-tip" title="Farmer Tip">{tip}</div>
-        <div className="footer-region">
-          <label htmlFor="region-select">Region:</label>
-          <select id="region-select" value={region} onChange={e => setRegion(e.target.value)}>
-            {regions.map(r => <option key={r} value={r}>{r}</option>)}
-          </select>
-        </div>
-        <div className="footer-support">
-          <span style={{ fontSize: 14, color: '#388e3c', fontWeight: 600 }}>
-            Need help? <a href="tel:1800123456" style={{ color: '#388e3c', textDecoration: 'underline' }}>Call: 1800-123-456</a>
-          </span>
+        <div>
+          <h4>Legal</h4>
+          <a href="/terms">Terms of Service</a>
+          <a href="/privacy">Privacy Policy</a>
         </div>
       </div>
-      <div className="footer-bottom-row">
-        <span className="footer-copyright">&copy; {new Date().getFullYear()} Agrofix. All rights reserved.</span>
-        <span className="footer-designer">Designed by Team Agrofix</span>
+      <div className="footer-social">
+        <h4>Follow Us</h4>
+        <div className="footer-social-icons">
+          <a href="#" aria-label="Instagram"><img src="https://img.icons8.com/color/32/instagram-new.png" alt="Instagram" /></a>
+          <a href="#" aria-label="X"><img src="https://img.icons8.com/ios-filled/32/000000/x.png" alt="X (Twitter)" /></a>
+          <a href="#" aria-label="Facebook"><img src="https://img.icons8.com/color/32/facebook-new.png" alt="Facebook" /></a>
+          <a href="#" aria-label="LinkedIn"><img src="https://img.icons8.com/color/32/linkedin.png" alt="LinkedIn" /></a>
+        </div>
       </div>
-    </footer>
-  );
-}
+    </div>
+    <div className="footer-bottom">
+      <span> {new Date().getFullYear()} Agrofix. All rights reserved.</span>
+      <span className="footer-made">Made with <span style={{color:'#e57373',fontWeight:700}}>&hearts;</span> for Indian Farmers</span>
+    </div>
+  </footer>
+);
+
+export default Footer;

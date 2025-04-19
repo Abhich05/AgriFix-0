@@ -7,7 +7,7 @@ import AdminDashboard from './pages/AdminDashboard';
 import AdminLoginPage from './pages/AdminLoginPage';
 import LanguageToggle from './components/LanguageToggle';
 // import WeatherWidget from './components/WeatherWidget';
-import Footer from './components/Footer';
+import Footer from './components/Footer/Footer';
 import ImageGallery from './components/ImageGallery';
 import { CartProvider } from './context/CartContext';
 import CartPage from './pages/CartPage';

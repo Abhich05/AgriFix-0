@@ -36,11 +36,11 @@ export default function BuyerLoginPage() {
       <h2 className={styles['buyer-auth-title']}>Buyer Login</h2>
       <form className={styles['buyer-auth-form']} onSubmit={handleSubmit(onSubmit)} noValidate>
         <label>Email
-          <input {...register('email')} />
+          <input placeholder="Enter your email" {...register('email')} />
           {errors.email && <div className={styles['buyer-auth-error']}>{errors.email.message}</div>}
         </label>
         <label>Password
-          <input type="password" {...register('password')} />
+          <input type="password" placeholder="Enter your password" {...register('password')} />
           {errors.password && <div className={styles['buyer-auth-error']}>{errors.password.message}</div>}
         </label>
         <button type="submit" className={styles['buyer-auth-btn']}>Login</button>

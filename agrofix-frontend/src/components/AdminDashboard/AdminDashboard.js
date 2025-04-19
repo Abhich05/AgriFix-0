@@ -97,6 +97,33 @@ function AdminDashboard() {
   const [showAddProduct, setShowAddProduct] = useState(false);
   const [newProduct, setNewProduct] = useState({ name: '', price: '', stock: '', description: '', imageUrl: '' });
 
+  // --- STATE FOR EDIT PRODUCT DIALOG ---
+  const [showEditProduct, setShowEditProduct] = useState(false);
+  const [editProduct, setEditProduct] = useState(null);
+
+  // --- HANDLER FOR OPENING EDIT DIALOG ---
+  const handleOpenEdit = (product) => {
+    setEditProduct(product);
+    setShowEditProduct(true);
+  };
+
+  // --- HANDLER FOR SAVING EDITED PRODUCT ---
+  const handleSaveEdit = async () => {
+    if (!editProduct.name || !editProduct.price || !editProduct.stock) {
+      setSnackbar({ open: true, msg: t('fillAllFields') || 'Please fill all required fields', severity: 'warning' });
+      return;
+    }
+    await editInventory(editProduct.id, {
+      name: editProduct.name,
+      price: Number(editProduct.price),
+      stock: Number(editProduct.stock),
+      description: editProduct.description,
+      imageUrl: editProduct.imageUrl
+    });
+    setShowEditProduct(false);
+    setEditProduct(null);
+  };
+
   // --- HANDLER FOR ADD PRODUCT ---
   const handleAddProduct = async () => {
     if (!newProduct.name || !newProduct.price || !newProduct.stock) {
@@ -127,84 +154,146 @@ function AdminDashboard() {
           <Tab label={t('viewOrders') || 'View Orders'} />
         </Tabs>
         {tab === 0 && (
-          <TableContainer component={Paper} sx={{ borderRadius: 2, boxShadow: 2, mb: 3 }}>
-            <Table className="admin-table">
-              <TableHead>
-                <TableRow sx={{ background: '#e8f5e9' }}>
-                  <TableCell sx={{ fontWeight: 700 }}>{t('productId') || 'Product ID'}</TableCell>
-                  <TableCell sx={{ fontWeight: 700 }}>{t('name') || 'Name'}</TableCell>
-                  <TableCell sx={{ fontWeight: 700 }}>{t('price') || 'Price'}</TableCell>
-                  <TableCell sx={{ fontWeight: 700 }}>{t('stock') || 'Stock'}</TableCell>
-                  <TableCell sx={{ fontWeight: 700 }}>{t('description') || 'Description'}</TableCell>
-                  <TableCell sx={{ fontWeight: 700 }}>{t('imageUrl') || 'Image'}</TableCell>
-                  <TableCell sx={{ fontWeight: 700 }}>{t('actions') || 'Actions'}</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {inventory.map(product => (
-                  <TableRow key={product.id}>
-                    <TableCell>{product.id}</TableCell>
-                    <TableCell>{product.name}</TableCell>
-                    <TableCell>₹{product.price}</TableCell>
-                    <TableCell>{product.stock}</TableCell>
-                    <TableCell>{product.description}</TableCell>
-                    <TableCell>
-                      {product.imageUrl ? (
-                        <img src={product.imageUrl} alt={product.name} style={{ width: 40, height: 40, objectFit: 'cover', borderRadius: 4 }} />
-                      ) : (
-                        <span style={{ color: '#aaa' }}>N/A</span>
-                      )}
-                    </TableCell>
-                    <TableCell>
-                      <Button variant="contained" size="small" sx={{ mr: 1, mb: 0.5, background: '#0288d1', borderRadius: 2, fontWeight: 700 }} onClick={() => editInventory(product.id, product)} aria-label="Edit Product">✏️ {t('edit') || 'Edit Product'}</Button>
-                      <Button variant="contained" size="small" sx={{ background: '#b71c1c', borderRadius: 2, fontWeight: 700 }} onClick={() => deleteInventory(product.id)} aria-label="Delete Product">🗑️ {t('delete') || 'Delete Product'}</Button>
-                    </TableCell>
+          <>
+            <Button variant="contained" sx={{ mb: 2, borderRadius: 2, fontWeight: 700, background: '#388e3c' }} onClick={() => setShowAddProduct(true)}>
+              ➕ {t('addProduct') || 'Add Product'}
+            </Button>
+            <TableContainer component={Paper} sx={{ borderRadius: 2, boxShadow: 2, mb: 3 }}>
+              <Table className="admin-table">
+                <TableHead>
+                  <TableRow sx={{ background: '#e8f5e9' }}>
+                    <TableCell sx={{ fontWeight: 700 }}>{t('productId') || 'Product ID'}</TableCell>
+                    <TableCell sx={{ fontWeight: 700 }}>{t('name') || 'Name'}</TableCell>
+                    <TableCell sx={{ fontWeight: 700 }}>{t('price') || 'Price'}</TableCell>
+                    <TableCell sx={{ fontWeight: 700 }}>{t('stock') || 'Stock'}</TableCell>
+                    <TableCell sx={{ fontWeight: 700 }}>{t('description') || 'Description'}</TableCell>
+                    <TableCell sx={{ fontWeight: 700 }}>{t('imageUrl') || 'Image'}</TableCell>
+                    <TableCell sx={{ fontWeight: 700 }}>{t('actions') || 'Actions'}</TableCell>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+                </TableHead>
+                <TableBody>
+                  {inventory.map(product => (
+                    <TableRow key={product.id}>
+                      <TableCell>{product.id}</TableCell>
+                      <TableCell>{product.name}</TableCell>
+                      <TableCell>₹{product.price}</TableCell>
+                      <TableCell>{product.stock}</TableCell>
+                      <TableCell>{product.description}</TableCell>
+                      <TableCell>
+                        {product.imageUrl ? (
+                          <img src={product.imageUrl} alt={product.name} style={{ width: 40, height: 40, objectFit: 'cover', borderRadius: 4 }} />
+                        ) : (
+                          <span style={{ color: '#aaa' }}>N/A</span>
+                        )}
+                      </TableCell>
+                      <TableCell>
+                        <Button variant="contained" size="small" sx={{ mr: 1, mb: 0.5, background: '#0288d1', borderRadius: 2, fontWeight: 700 }} onClick={() => handleOpenEdit(product)} aria-label="Edit Product">✏️ {t('edit') || 'Edit Product'}</Button>
+                        <Button variant="contained" size="small" sx={{ background: '#b71c1c', borderRadius: 2, fontWeight: 700 }} onClick={() => deleteInventory(product.id)} aria-label="Delete Product">🗑️ {t('delete') || 'Delete Product'}</Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            {/* Edit Product Dialog */}
+            <Dialog open={showEditProduct} onClose={() => setShowEditProduct(false)}>
+              <DialogTitle sx={{ fontWeight: 700, color: '#0288d1' }}>{t('editProduct') || 'Edit Product'}</DialogTitle>
+              <DialogContent>
+                <TextField
+                  margin="dense"
+                  label={t('name') || 'Name'}
+                  fullWidth
+                  value={editProduct?.name || ''}
+                  onChange={e => setEditProduct({ ...editProduct, name: e.target.value })}
+                  sx={{ mb: 1 }}
+                />
+                <TextField
+                  margin="dense"
+                  label={t('price') || 'Price'}
+                  type="number"
+                  fullWidth
+                  value={editProduct?.price || ''}
+                  onChange={e => setEditProduct({ ...editProduct, price: e.target.value })}
+                  sx={{ mb: 1 }}
+                />
+                <TextField
+                  margin="dense"
+                  label={t('stock') || 'Stock'}
+                  type="number"
+                  fullWidth
+                  value={editProduct?.stock || ''}
+                  onChange={e => setEditProduct({ ...editProduct, stock: e.target.value })}
+                  sx={{ mb: 1 }}
+                />
+                <TextField
+                  margin="dense"
+                  label={t('description') || 'Description'}
+                  fullWidth
+                  value={editProduct?.description || ''}
+                  onChange={e => setEditProduct({ ...editProduct, description: e.target.value })}
+                  sx={{ mb: 1 }}
+                />
+                <TextField
+                  margin="dense"
+                  label={t('imageUrl') || 'Image URL'}
+                  fullWidth
+                  value={editProduct?.imageUrl || ''}
+                  onChange={e => setEditProduct({ ...editProduct, imageUrl: e.target.value })}
+                  sx={{ mb: 1 }}
+                />
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={() => setShowEditProduct(false)}>{t('cancel') || 'Cancel'}</Button>
+                <Button onClick={handleSaveEdit} variant="contained" sx={{ background: '#0288d1', fontWeight: 700 }}>{t('save') || 'Save'}</Button>
+              </DialogActions>
+            </Dialog>
+          </>
         )}
         {tab === 1 && (
-          <TableContainer component={Paper} sx={{ borderRadius: 2, boxShadow: 2, mb: 3 }}>
-            <Table className="admin-table">
-              <TableHead>
-                <TableRow>
-                  <TableCell>{t('orderId') || 'Order ID'}</TableCell>
-                  <TableCell>{t('buyer') || 'Buyer'}</TableCell>
-                  <TableCell>{t('contact') || 'Contact'}</TableCell>
-                  <TableCell>{t('address') || 'Address'}</TableCell>
-                  <TableCell>{t('items') || 'Items'}</TableCell>
-                  <TableCell>{t('status') || 'Status'}</TableCell>
-                  <TableCell>{t('actions') || 'Actions'}</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {orders.map(order => (
-                  <TableRow key={order.id}>
-                    <TableCell>{order.id}</TableCell>
-                    <TableCell>{order.buyer_name}</TableCell>
-                    <TableCell>{order.buyer_contact}</TableCell>
-                    <TableCell>{order.delivery_address}</TableCell>
-                    <TableCell>
-                      <ul style={{margin:0,padding:0,listStyle:'none'}}>
-                        {Array.isArray(order.items) && order.items.map((item, idx) => (
-                          <li key={idx}>{item.name} x{item.quantity}</li>
-                        ))}
-                      </ul>
-                    </TableCell>
-                    <TableCell>
-                      <Typography className={`admin-status status-${order.status}`} sx={{ fontWeight: 700 }}>{t(order.status) || order.status}</Typography>
-                    </TableCell>
-                    <TableCell>
-                      <Button variant="contained" size="small" sx={{ mr: 1, mb: 0.5, background: '#0288d1', borderRadius: 2, fontWeight: 700 }} onClick={() => updateOrderStatus(order.id, 'in_progress')}>{t('markInProgress') || 'In Progress'}</Button>
-                      <Button variant="contained" size="small" sx={{ background: '#388e3c', borderRadius: 2, fontWeight: 700 }} onClick={() => updateOrderStatus(order.id, 'delivered')}>{t('markDelivered') || 'Delivered'}</Button>
-                    </TableCell>
+          <>
+            <Typography variant="h6" sx={{ fontWeight: 700, mb: 1 }}>
+              {t('totalOrders') || 'Total Orders'}: {orders.length}
+            </Typography>
+            <TableContainer component={Paper} sx={{ borderRadius: 2, boxShadow: 2, mb: 3 }}>
+              <Table className="admin-table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>{t('orderId') || 'Order ID'}</TableCell>
+                    <TableCell>{t('buyer') || 'Buyer'}</TableCell>
+                    <TableCell>{t('contact') || 'Contact'}</TableCell>
+                    <TableCell>{t('address') || 'Address'}</TableCell>
+                    <TableCell>{t('items') || 'Items'}</TableCell>
+                    <TableCell>{t('status') || 'Status'}</TableCell>
+                    <TableCell>{t('actions') || 'Actions'}</TableCell>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+                </TableHead>
+                <TableBody>
+                  {orders.map(order => (
+                    <TableRow key={order.id}>
+                      <TableCell>{order.id}</TableCell>
+                      <TableCell>{order.buyer_name}</TableCell>
+                      <TableCell>{order.buyer_contact}</TableCell>
+                      <TableCell>{order.delivery_address}</TableCell>
+                      <TableCell>
+                        <ul style={{margin:0,padding:0,listStyle:'none'}}>
+                          {Array.isArray(order.items) && order.items.map((item, idx) => (
+                            <li key={idx}>{item.name} x{item.quantity}</li>
+                          ))}
+                        </ul>
+                      </TableCell>
+                      <TableCell>
+                        <Typography className={`admin-status status-${order.status}`} sx={{ fontWeight: 700 }}>{t(order.status) || order.status}</Typography>
+                      </TableCell>
+                      <TableCell>
+                        <Button variant="contained" size="small" sx={{ mr: 1, mb: 0.5, background: '#0288d1', borderRadius: 2, fontWeight: 700 }} onClick={() => updateOrderStatus(order.id, 'in_progress')}>{t('markInProgress') || 'In Progress'}</Button>
+                        <Button variant="contained" size="small" sx={{ background: '#388e3c', borderRadius: 2, fontWeight: 700 }} onClick={() => updateOrderStatus(order.id, 'delivered')}>{t('markDelivered') || 'Delivered'}</Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </>
         )}
         {/* Add Product Dialog */}
         <Dialog open={showAddProduct} onClose={() => setShowAddProduct(false)}>
