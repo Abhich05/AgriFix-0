@@ -97,9 +97,32 @@
   }
 }
 @media (max-width: 480px) {
+  .navbar { 
+    flex-direction: column; 
+    gap: 6px; 
+    padding: 6px 0 6px 0; 
+    min-height: 48px; 
+  }
+  .navbar-btn { 
+    font-size: 0.9rem; 
+    padding: 2px 6px; 
+  }
+  .navbar-btn .navbar-icon { 
+    font-size: 1.1rem !important; 
+  }
+  .navbar-cart-badge { 
+    font-size: 0.9rem; 
+    min-width: 18px; 
+    height: 18px; 
+  }
   .MuiTypography-h6 {
     font-size: 0.97rem !important;
     padding-left: 2px;
     padding-right: 2px;
+  }
+}
+@media (max-width: 360px) {
+  .navbar-btn { 
+    font-size: 0.8rem; 
   }
 }

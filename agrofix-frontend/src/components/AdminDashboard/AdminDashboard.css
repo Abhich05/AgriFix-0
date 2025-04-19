@@ -158,26 +158,15 @@
   margin-bottom: 8px;
 }
 @media (max-width: 900px) {
-  .admin-dashboard-main {
-    padding: 8px 2px 12px 2px;
-  }
-  .admin-section {
-    padding: 12px 5px 10px 5px;
-  }
-  .admin-section-title {
-    font-size: 1.15rem;
-  }
-  .admin-table th, .admin-table td {
-    font-size: 0.95rem;
-    padding: 8px 4px;
-  }
+  .admin-dashboard-main { padding: 16px 2vw !important; }
+  .admin-section { padding: 14px 2vw !important; }
+  .admin-table th, .admin-table td { font-size: 0.98rem !important; padding: 8px 4px !important; }
 }
 @media (max-width: 600px) {
-  .admin-table th, .admin-table td {
-    font-size: 0.95rem;
-    padding: 8px 4px;
-  }
-  .admin-section-title {
-    font-size: 1rem;
-  }
+  .admin-dashboard-main { padding: 4px 1vw !important; }
+  .admin-section { padding: 6px 1vw !important; }
+  .admin-table th, .admin-table td { font-size: 0.87rem !important; padding: 4px 2px !important; }
+}
+@media (max-width: 400px) {
+  .admin-dashboard-main { padding: 0 !important; }
 }

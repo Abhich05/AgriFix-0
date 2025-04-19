@@ -22,11 +22,11 @@ export default function BuyerDashboardPage() {
       return;
     }
     // Fetch profile
-    axios.get('/api/buyers/me', { headers: { Authorization: `Bearer ${token}` } })
+    axios.get('https://agrofix-2-czmk.onrender.com/api/buyers/me', { headers: { Authorization: `Bearer ${token}` } })
       .then(res => setProfile(res.data))
       .catch(() => setProfile(null));
     // Fetch orders
-    axios.get('/api/orders/my', {
+    axios.get('https://agrofix-2-czmk.onrender.com/api/orders/my', {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(res => setOrders(res.data.orders || []))

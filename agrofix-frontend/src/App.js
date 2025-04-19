@@ -36,7 +36,7 @@ function Home() {
     const token = localStorage.getItem('buyerToken');
     if (token) {
       // Try to fetch buyer profile
-      fetch('/api/buyers/me', {
+      fetch('https://agrofix-2-czmk.onrender.com/api/buyers/me', {
         headers: { Authorization: `Bearer ${token}` },
       })
         .then(res => res.ok ? res.json() : null)

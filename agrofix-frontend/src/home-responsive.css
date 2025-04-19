@@ -60,6 +60,26 @@
     align-items: center;
     justify-content: center;
   }
+  /* Add spacing around all cards in Home page for mobile/tablet */
+  .innovations-section > div > div,
+  .innovation-card {
+    margin: 0.7rem 0 !important;
+    box-sizing: border-box;
+  }
+  /* Make Home innovation cards smaller and centered for responsive */
+  .innovations-section > div {
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 1.2rem !important;
+  }
+  .innovation-card, .innovations-section > div > div {
+    width: 220px !important;
+    min-width: 160px !important;
+    max-width: 90vw !important;
+    margin: 0.7rem 0.6rem !important;
+    box-sizing: border-box;
+  }
 }
 @media (max-width: 600px) {
   .hero {
@@ -101,5 +121,155 @@
     border-radius: 6px !important;
     width: 90px !important;
     min-width: 0 !important;
+  }
+  .innovations-section > div > div,
+  .innovation-card {
+    margin: 1rem 0 !important;
+    box-sizing: border-box;
+  }
+  .innovations-section > div {
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 0.7rem !important;
+  }
+  .innovation-card, .innovations-section > div > div {
+    width: 150px !important;
+    min-width: 110px !important;
+    max-width: 90vw !important;
+    margin: 0.6rem 0.3rem !important;
+    box-sizing: border-box;
+  }
+}
+
+/* Responsive overrides for Home page ONLY */
+@media (max-width: 900px) {
+  .hero {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center;
+    gap: 1.2rem !important;
+    padding: 2rem 1rem 1.5rem 1rem !important;
+    min-height: 180px !important;
+  }
+  .hero > img {
+    width: 100px !important;
+    height: 100px !important;
+    padding: 8px !important;
+  }
+  .hero-title {
+    font-size: 28px !important;
+  }
+  .hero-desc {
+    font-size: 17px !important;
+  }
+  .hero > div > div {
+    justify-content: center !important;
+  }
+  .attract-farmers-section {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 1.5rem !important;
+    padding: 1.7rem 1rem 1.5rem 1rem !important;
+    min-height: 160px !important;
+  }
+  .attract-farmers-section > div, .attract-farmers-section > svg {
+    width: 100% !important;
+    text-align: center;
+  }
+  .attract-farmers-section img {
+    width: 120px !important;
+    max-width: 60vw !important;
+  }
+  .innovations-section > div {
+    flex-direction: column !important;
+    gap: 1.2rem !important;
+    align-items: center !important;
+  }
+  .innovations-section .innovation-card, .innovations-section > div > div {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 350px;
+    margin: 0 auto;
+  }
+}
+@media (max-width: 600px) {
+  .hero {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center;
+    padding: 1.2rem 0.5rem 1rem 0.5rem !important;
+    gap: 0.8rem !important;
+    min-height: 110px !important;
+    border-radius: 10px !important;
+    box-shadow: 0 2px 8px #a8e06322 !important;
+  }
+  .hero > img {
+    width: 70px !important;
+    height: 70px !important;
+    padding: 4px !important;
+  }
+  .hero-title {
+    font-size: 19px !important;
+    margin-bottom: 5px !important;
+  }
+  .hero-desc {
+    font-size: 13px !important;
+    margin-bottom: 8px !important;
+  }
+  .hero > div > div {
+    flex-direction: column !important;
+    gap: 0.7rem !important;
+    align-items: center !important;
+    width: 100% !important;
+  }
+  .btn-primary, .btn-secondary {
+    font-size: 14px !important;
+    padding: 7px 0 !important;
+    border-radius: 6px !important;
+    width: 90px !important;
+    min-width: 0 !important;
+  }
+  .attract-farmers-section {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 1rem !important;
+    padding: 1.2rem 0.5rem 1rem 0.5rem !important;
+    min-height: 110px !important;
+    border-radius: 10px !important;
+    box-shadow: 0 2px 8px #a8e06322 !important;
+  }
+  .attract-farmers-section h2 {
+    font-size: 19px !important;
+    margin-bottom: 5px !important;
+  }
+  .attract-farmers-section p {
+    font-size: 13px !important;
+    margin-bottom: 8px !important;
+  }
+  .attract-farmers-section img {
+    width: 70px !important;
+    max-width: 60vw !important;
+  }
+  .attract-farmers-section .attract-joined, .attract-farmers-section > div > div:last-child {
+    font-size: 13px !important;
+    padding: 4px 8px !important;
+  }
+  .innovations-section {
+    padding: 1rem 0.4rem !important;
+  }
+  .innovations-section h2 {
+    font-size: 17px !important;
+    margin-bottom: 7px !important;
+  }
+  .innovations-section .innovation-title, .innovations-section h3 {
+    font-size: 15px !important;
+  }
+  .innovations-section img {
+    width: 52px !important;
+    margin-bottom: 4px !important;
+  }
+  .innovations-section .innovation-desc, .innovations-section p {
+    font-size: 12px !important;
   }
 }

@@ -340,3 +340,11 @@
     padding: 10px 3px 8px 3px;
   }
 }
+@media (max-width: 600px) {
+  .track-main, .track-form, .track-details { max-width: 98vw !important; padding: 10px 2vw !important; }
+  .track-title { font-size: 1.1rem !important; }
+  .track-form input, .track-form button { font-size: 0.97rem !important; padding: 8px 8px !important; }
+}
+@media (max-width: 400px) {
+  .track-title { font-size: 0.95rem !important; }
+}

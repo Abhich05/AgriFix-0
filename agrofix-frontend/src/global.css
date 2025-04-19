@@ -378,17 +378,40 @@ button:hover {
 }
 
 @media (max-width: 480px) {
-  main { padding: 1rem; margin: 1rem auto; border-radius: 16px; }
-  .hero { padding: 1.5rem 1rem; border-radius: 16px; }
-  .hero-img { width: 120px; height: 120px; }
-  .hero-title { font-size: 1.8rem; }
-  .hero-desc { font-size: 1rem; }
-  .feature-card-title { font-size: 1.2rem; }
-  .feature-card-desc { font-size: 0.9rem; }
-  .catalogue-title { font-size: 1.8rem; }
-  .catalogue-card { padding: 20px; }
-  .catalogue-name { font-size: 1.3rem; }
-  .catalogue-price { font-size: 1.1rem; }
-  .catalogue-description { font-size: 0.9rem; }
-  .btn-primary, button { font-size: 1rem; padding: 12px 24px; }
+  main { padding: 0.2rem 0.2rem 0.8rem 0.2rem !important; margin: 0.4rem auto !important; border-radius: 10px !important; }
+  .hero { padding: 1.1rem 0.5rem !important; border-radius: 10px !important; gap: 0.4rem !important; }
+  .hero-img { width: 64px !important; height: 64px !important; }
+  .hero-title { font-size: 1.1rem !important; }
+  .hero-desc { font-size: 0.88rem !important; }
+  .feature-card-title { font-size: 1rem !important; }
+  .feature-card-desc { font-size: 0.8rem !important; }
+  .catalogue-title { font-size: 1.2rem !important; }
+  .catalogue-card { padding: 10px !important; }
+  .catalogue-name { font-size: 1rem !important; }
+  .catalogue-price { font-size: 0.9rem !important; }
+  .catalogue-description { font-size: 0.8rem !important; }
+  .btn-primary, button { font-size: 0.92rem !important; padding: 8px 10px !important; }
+}
+
+img, .catalogue-img, .catalogue-img-pro, .hero-img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+table {
+  width: 100%;
+  overflow-x: auto;
+  display: block;
+  font-size: 0.97rem;
+}
+
+body, html {
+  overflow-x: hidden !important;
+}
+
+.feature-card, .catalogue-card, .order-cart-card, .order-form {
+  padding-left: 4vw !important;
+  padding-right: 4vw !important;
+  box-sizing: border-box;
 }

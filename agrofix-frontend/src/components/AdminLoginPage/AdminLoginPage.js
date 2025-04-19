@@ -29,7 +29,12 @@ function AdminLoginPage() {
         reset();
         navigate('/admin');
       } catch (err) {
-        setError('Invalid admin credentials');
+        console.log('Admin login error:', err, err.response);
+        if (err.response && err.response.data && err.response.data.error) {
+          setError(err.response.data.error);
+        } else {
+          setError('Invalid admin credentials');
+        }
       }
     } else {
       try {

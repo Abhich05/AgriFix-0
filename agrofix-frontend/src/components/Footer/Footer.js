@@ -40,31 +40,29 @@ export default function Footer() {
           <span className="footer-title">Agrofix</span>
         </div>
         <div className="footer-links">
-          <a href="/" className="footer-link"> Home</a>
-          <a href="/catalogue" className="footer-link"> Shop</a>
-          <a href="/order" className="footer-link"> My Basket</a>
-          <a href="/track" className="footer-link"> Track Order</a>
+          <a href="/" className="footer-link">Home</a>
+          <a href="/catalogue" className="footer-link">Shop</a>
+          <a href="/order" className="footer-link">My Basket</a>
+          <a href="/track" className="footer-link">Track Order</a>
         </div>
-        <div className="footer-social-policy-row">
-          <div className="footer-social">
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="footer-social-icon">
-              <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook" style={{width:'26px',height:'26px'}} />
-            </a>
-            <a href="https://x.com" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" className="footer-social-icon">
-              <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg" alt="X" style={{width:'26px',height:'26px'}} />
-            </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="footer-social-icon">
-              <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram" style={{width:'26px',height:'26px'}} />
-            </a>
-            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="footer-social-icon">
-              <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube" style={{width:'26px',height:'26px'}} />
-            </a>
-          </div>
-          <div className="footer-policy">
-            <a href="/privacy" className="footer-policy-link">Privacy Policy</a>
-            <span className="footer-policy-sep">|</span>
-            <a href="/terms" className="footer-policy-link">Terms & Conditions</a>
-          </div>
+        <div className="footer-social">
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="footer-social-icon">
+            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook" />
+          </a>
+          <a href="https://x.com" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" className="footer-social-icon">
+            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/x.svg" alt="X" />
+          </a>
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="footer-social-icon">
+            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram" />
+          </a>
+          <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="footer-social-icon">
+            <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg" alt="YouTube" />
+          </a>
+        </div>
+        <div className="footer-policy">
+          <a href="/privacy" className="footer-policy-link">Privacy Policy</a>
+          <span className="footer-policy-sep">|</span>
+          <a href="/terms" className="footer-policy-link">Terms & Conditions</a>
         </div>
         <div className="footer-tip" title="Farmer Tip">{tip}</div>
         <div className="footer-region">
@@ -75,13 +73,13 @@ export default function Footer() {
         </div>
         <div className="footer-support">
           <span style={{ fontSize: 14, color: '#388e3c', fontWeight: 600 }}>
-            Need help? Call us: <a href="tel:1800123456" style={{ color: '#388e3c', textDecoration: 'underline' }}>1800-123-456</a>
+            Need help? <a href="tel:1800123456" style={{ color: '#388e3c', textDecoration: 'underline' }}>Call: 1800-123-456</a>
           </span>
         </div>
-        <div className="footer-bottom-row">
-          <span className="footer-copyright">&copy; {new Date().getFullYear()} Agrofix. All rights reserved.</span>
-          <span className="footer-designer">Designed by ABHISHEK C H</span>
-        </div>
+      </div>
+      <div className="footer-bottom-row">
+        <span className="footer-copyright">&copy; {new Date().getFullYear()} Agrofix. All rights reserved.</span>
+        <span className="footer-designer">Designed by Team Agrofix</span>
       </div>
     </footer>
   );
