@@ -42,19 +42,71 @@ function NavBar() {
     { label: t('Login') || '🔑 Login', path: '/admin-login', icon: <AdminPanelSettingsIcon />, className: 'nav-admin-login' }
   ];
 
+  // Add Refer & Earn as a special nav item only for mobile drawer
+  const navItemsWithRefer = [
+    ...navItems,
+    {
+      label: 'Refer & Earn',
+      path: '#refer',
+      icon: <img src="https://img.icons8.com/color/24/000000/whatsapp.png" alt="WhatsApp" style={{ verticalAlign: 'middle' }} />,
+      className: 'nav-refer-earn',
+      isRefer: true
+    }
+  ];
+
   const handleDrawerToggle = () => setDrawerOpen(!drawerOpen);
 
   const drawer = (
     <Drawer anchor="left" open={drawerOpen} onClose={handleDrawerToggle}>
       <List sx={{ width: 220 }}>
-        {navItems.map((item) => (
-          <ListItem button key={item.path} onClick={() => { navigate(item.path); setDrawerOpen(false); }} selected={location.pathname === item.path}>
-            <ListItemIcon>{item.icon}</ListItemIcon>
-            <ListItemText primary={item.label} />
-          </ListItem>
+        {navItemsWithRefer.map((item) => (
+          item.isRefer ? (
+            <ListItem button key={item.label} onClick={() => {
+              const text = encodeURIComponent('Join me on Agrofix for the best way to buy & sell farm produce! Sign up here: https://agrofix.in');
+              window.open(`https://wa.me/?text=${text}`, '_blank');
+              setDrawerOpen(false);
+            }}>
+              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemText primary={item.label} primaryTypographyProps={{ style: { color: '#25D366', fontWeight: 700 } }} />
+            </ListItem>
+          ) : (
+            <ListItem button key={item.path} onClick={() => { navigate(item.path); setDrawerOpen(false); }} selected={location.pathname === item.path}>
+              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemText primary={item.label} />
+            </ListItem>
+          )
         ))}
       </List>
     </Drawer>
+  );
+
+  const referButton = (
+    <button
+      onClick={() => {
+        const text = encodeURIComponent('Join me on Agrofix for the best way to buy & sell farm produce! Sign up here: https://agrofix.in');
+        window.open(`https://wa.me/?text=${text}`, '_blank');
+      }}
+      style={{
+        background: 'linear-gradient(90deg,#25D366,#128C7E)',
+        color: '#fff',
+        border: 'none',
+        borderRadius: 8,
+        fontWeight: 700,
+        fontSize: 15,
+        padding: '8px 18px',
+        marginLeft: 16,
+        cursor: 'pointer',
+        display: 'flex',
+        alignItems: 'center',
+        boxShadow: '0 2px 8px #25d36633',
+        gap: 8,
+        transition: 'background 0.2s',
+      }}
+      className="refer-earn-btn"
+    >
+      <img src="https://img.icons8.com/color/24/000000/whatsapp.png" alt="WhatsApp" style={{ verticalAlign: 'middle' }} />
+      Refer & Earn
+    </button>
   );
 
   return (
@@ -73,8 +125,8 @@ function NavBar() {
                 </Link>
               </Box>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                {referButton}
                 <LanguageToggle />
-                {/* My Cart removed from mobile top bar, now merged with order page */}
               </Box>
             </>
           ) : (
@@ -99,7 +151,8 @@ function NavBar() {
                     <Typography variant="body2" sx={{ color: location.pathname === item.path ? '#fbc02d' : '#fff', fontWeight: 700, ml: 0.5, whiteSpace: 'nowrap' }}>{item.label}</Typography>
                   </Link>
                 ))}
-                <Box sx={{ ml: 2 }}>
+                <Box sx={{ ml: 2, display: 'flex', alignItems: 'center' }}>
+                  {referButton}
                   <LanguageToggle />
                 </Box>
               </Box>
