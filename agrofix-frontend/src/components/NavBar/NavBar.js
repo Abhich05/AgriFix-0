@@ -56,6 +56,25 @@ function NavBar() {
 
   const handleDrawerToggle = () => setDrawerOpen(!drawerOpen);
 
+  const handleLogout = () => {
+    if (localStorage.getItem('buyerToken')) {
+      localStorage.removeItem('buyerToken');
+      navigate('/buyer-login');
+    } else if (localStorage.getItem('adminToken')) {
+      localStorage.removeItem('adminToken');
+      navigate('/admin-login');
+    }
+  };
+
+  const isBuyerLoggedIn = Boolean(localStorage.getItem('buyerToken'));
+  const isAdminLoggedIn = Boolean(localStorage.getItem('adminToken'));
+
+  // Filter nav items: hide Login after login
+  const filteredNavItems = navItems.filter(item => {
+    if ((isBuyerLoggedIn || isAdminLoggedIn) && item.label.toLowerCase().includes('login')) return false;
+    return true;
+  });
+
   const drawer = (
     <Drawer anchor="left" open={drawerOpen} onClose={handleDrawerToggle}>
       <List sx={{ width: 220 }}>
@@ -137,7 +156,8 @@ function NavBar() {
                 </Link>
               </Box>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 3 }}>
-                {navItems.map((item, idx) => (
+                {/* Show nav items except Login after login, always show Logout if logged in */}
+                {filteredNavItems.map((item, idx) => (
                   <Link key={item.path} to={item.path} style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit', margin: '0 8px' }}>
                     <IconButton
                       color={location.pathname === item.path ? 'warning' : 'inherit'}
@@ -150,6 +170,27 @@ function NavBar() {
                     <Typography variant="body2" sx={{ color: location.pathname === item.path ? '#fbc02d' : '#fff', fontWeight: 700, ml: 0.5, whiteSpace: 'nowrap' }}>{item.label}</Typography>
                   </Link>
                 ))}
+                {(isBuyerLoggedIn || isAdminLoggedIn) && (
+                  <button
+                    onClick={handleLogout}
+                    style={{
+                      background: '#fff',
+                      color: '#388e3c',
+                      border: 'none',
+                      borderRadius: 8,
+                      fontWeight: 700,
+                      fontSize: 16,
+                      padding: '8px 18px',
+                      marginLeft: 16,
+                      cursor: 'pointer',
+                      boxShadow: '0 2px 8px #388e3c22',
+                      transition: 'background 0.2s',
+                    }}
+                    className="logout-btn"
+                  >
+                    {t('Logout') || 'Logout'}
+                  </button>
+                )}
                 <Box sx={{ ml: 2, display: 'flex', alignItems: 'center' }}>
                   {referButton}
                   <LanguageToggle />

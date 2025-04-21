@@ -93,6 +93,70 @@ function Home() {
           </div>
         </div>
       </section>
+      {/* Event/Occasion Highlight Banner */}
+      <section className="event-banner" style={{
+        background: 'linear-gradient(90deg, #fffbe7 0%, #ffe082 100%)',
+        borderRadius: 16,
+        margin: '2rem 0',
+        padding: '1.5rem 2rem',
+        boxShadow: '0 2px 12px #ffd54f33',
+        textAlign: 'center',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: '0.7rem'
+      }}>
+        <h2 style={{ color: '#ff9800', fontWeight: 900, marginBottom: 8 }}>Planning a Wedding or Event?</h2>
+        <p style={{ color: '#444', fontSize: 18, maxWidth: 600 }}>Order fresh produce in bulk for weddings, parties, and more. Special offers available!</p>
+        <div style={{ display: 'flex', gap: '1.2rem', flexWrap: 'wrap', justifyContent: 'center', marginTop: 6 }}>
+          <a href="/catalogue?event=wedding" className="btn-primary event-btn" style={{
+            fontSize: 18,
+            padding: '12px 26px',
+            borderRadius: 10,
+            fontWeight: 700,
+            background: 'linear-gradient(90deg, #ffd54f 0%, #ff9800 100%)',
+            color: '#fff',
+            border: 'none',
+            boxShadow: '0 2px 8px #ff980033',
+            transition: 'transform 0.18s',
+            cursor: 'pointer',
+            outline: 'none',
+            minWidth: 170,
+            textAlign: 'center',
+            textDecoration: 'none',
+            display: 'inline-block',
+            marginBottom: 4
+          }}
+          onMouseOver={e => e.currentTarget.style.transform = 'scale(1.07)'}
+          onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}
+          >
+            💍 Shop for Weddings
+          </a>
+          <a href="/catalogue?event=party" className="btn-secondary event-btn" style={{
+            fontSize: 18,
+            padding: '12px 26px',
+            borderRadius: 10,
+            fontWeight: 700,
+            background: '#fff',
+            color: '#ff9800',
+            border: '2px solid #ff9800',
+            boxShadow: '0 2px 8px #ffd54f22',
+            transition: 'transform 0.18s',
+            cursor: 'pointer',
+            outline: 'none',
+            minWidth: 170,
+            textAlign: 'center',
+            textDecoration: 'none',
+            display: 'inline-block',
+            marginBottom: 4
+          }}
+          onMouseOver={e => e.currentTarget.style.transform = 'scale(1.07)'}
+          onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}
+          >
+            🎉 Shop for Parties
+          </a>
+        </div>
+      </section>
       {/* Farmer Attraction Container */}
       <section className="attract-farmers-section" style={{
         margin: '2.5rem auto 1.5rem',

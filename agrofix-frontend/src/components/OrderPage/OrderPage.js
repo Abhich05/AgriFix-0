@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useCart } from '../../context/CartContext';
 import { useLanguage } from '../../context/LanguageContext';
 import axios from 'axios';
@@ -29,19 +29,44 @@ function OrderPage() {
   const [showModal, setShowModal] = React.useState(false);
   const [copied, setCopied] = React.useState(false);
   const [snackbar, setSnackbar] = React.useState({ open: false, msg: '', severity: 'success' });
+  const [showPaymentModal, setShowPaymentModal] = React.useState(false);
+  const [formSnapshot, setFormSnapshot] = React.useState(null);
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm({
     resolver: yupResolver(orderSchema),
     mode: 'onTouched',
   });
 
-  const onSubmit = async (form) => {
+  const handleRazorpayDemo = () => {
+    setShowPaymentModal(false);
+    setTimeout(() => alert('Razorpay Demo: Payment Successful!'), 200);
+    placeOrder();
+  };
+
+  const handleUPIDemo = () => {
+    setShowPaymentModal(false);
+    setTimeout(() => alert('BHIM UPI Demo: Payment Successful!'), 200);
+    placeOrder();
+  };
+
+  const handleCODDemo = () => {
+    setShowPaymentModal(false);
+    setTimeout(() => alert('Order placed with Cash on Delivery!'), 200);
+    placeOrder();
+  };
+
+  const onSubmit = (form) => {
     setMessage('');
     if (cart.items.length === 0) {
       setMessage(t('emptyCart') || 'Your cart is empty.');
       setSnackbar({ open: true, msg: t('emptyCart') || 'Your cart is empty.', severity: 'error' });
       return;
     }
+    setFormSnapshot(form); // Save form values for use in placeOrder
+    setShowPaymentModal(true);
+  };
+
+  const placeOrder = async () => {
     try {
       const token = localStorage.getItem('buyerToken');
       const userId = 1; // Example static userId, replace with real user id
@@ -50,9 +75,9 @@ function OrderPage() {
       const orderData = {
         userId,
         userDetails: {
-          name: form.buyer_name,
-          contact: form.buyer_contact,
-          address: form.delivery_address
+          name: formSnapshot?.buyer_name || '',
+          contact: formSnapshot?.buyer_contact || '',
+          address: formSnapshot?.delivery_address || ''
         },
         products: cart.items.map(i => i.id),
         quantity,
@@ -64,6 +89,7 @@ function OrderPage() {
       dispatch({ type: 'CLEAR_CART' });
       setSnackbar({ open: true, msg: t('orderPlaced') || 'Order placed successfully!', severity: 'success' });
       reset();
+      setFormSnapshot(null);
     } catch (err) {
       setMessage(t('orderFailed'));
       setSnackbar({ open: true, msg: t('orderFailed') || 'Order failed!', severity: 'error' });
@@ -77,6 +103,17 @@ function OrderPage() {
       setTimeout(() => setCopied(false), 2000);
     }
   };
+
+  // Razorpay loader
+  useEffect(() => {
+    const scriptId = 'razorpay-checkout-js';
+    if (!document.getElementById(scriptId)) {
+      const script = document.createElement('script');
+      script.src = '/razorpay-checkout.js';
+      script.id = scriptId;
+      document.body.appendChild(script);
+    }
+  }, []);
 
   return (
     <div className="order-main">
@@ -131,19 +168,30 @@ function OrderPage() {
           </label>
           {errors.buyer_name && <div className="order-error">{errors.buyer_name.message}</div>}
 
-          <label htmlFor="buyer_contact">{t('contact') || 'Phone Number'}
+          <label htmlFor="buyer_contact">{t('contact') || 'Contact'}
             <input id="buyer_contact" placeholder="e.g. 9876543210" {...register('buyer_contact')} />
           </label>
           {errors.buyer_contact && <div className="order-error">{errors.buyer_contact.message}</div>}
 
           <label htmlFor="delivery_address">{t('deliveryAddress') || 'Delivery Address'}
-            <input id="delivery_address" placeholder="e.g. Village, District, State" {...register('delivery_address')} />
+            <input id="delivery_address" placeholder="e.g. 123 Main St, City" {...register('delivery_address')} />
           </label>
           {errors.delivery_address && <div className="order-error">{errors.delivery_address.message}</div>}
 
-          <button type="submit" className="btn-primary order-submit-btn" style={{ width: '100%', fontSize: 18, padding: '12px 0', marginTop: 10 }}>{t('placeOrder') || 'Place Order'}</button>
-          {message && <div className="order-error">{message}</div>}
+          <button type="submit" className="order-submit-btn">{t('bookBasket') || 'Book Basket'}</button>
         </form>
+      )}
+      {/* Payment Options Modal */}
+      {showPaymentModal && (
+        <div className="payment-modal">
+          <div className="payment-modal-content">
+            <div className="payment-modal-title">Choose Payment Method</div>
+            <button className="payment-option-btn" onClick={handleRazorpayDemo}>Razorpay (Demo)</button>
+            <button className="payment-option-btn" onClick={handleUPIDemo}>BHIM UPI (Demo)</button>
+            <button className="payment-option-btn" onClick={handleCODDemo}>Cash on Delivery (Demo)</button>
+            <button className="payment-modal-close" onClick={() => setShowPaymentModal(false)}>Cancel</button>
+          </div>
+        </div>
       )}
       {showModal && (
         <div className="order-modal">
